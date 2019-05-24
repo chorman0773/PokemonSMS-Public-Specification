@@ -1,6 +1,6 @@
 # PokemonSMS Public Specification Project #
 The specification documents provided here are written and provided by the PokemonSMS Public Specification Project. 
-The Project, all contained documentation and all associated "exemplar" code are (c) 2018 Connor Horman. 
+The Project, all contained documentation and all associated "exemplar" code are (c) 2018-2019 Connor Horman. 
 
 
 Neither The PokemonSMS Public Specification Project, nor the PokemonSMS Core Libraries (collectively The "PokemonSMS Core and Specification") are associated or affiliated with Nintendo or Game Freak, or any other company associated with official Pokemon Games. 
