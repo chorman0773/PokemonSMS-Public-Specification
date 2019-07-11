@@ -6,17 +6,20 @@
 
 ---
 --@type Battle
+--
 --The type of handles passed as the `battle` field of move event handlers.
---All methods have an implicit "self" parameter. 
+--All methods have an implicit "self" parameter.
 --The behavior is undefined if any methods of Battle are called, except by method invocation.
 
 ---
 --@type PokemonList
+--
 --[bind.battle.pkmlist]
 --@list<Pokemon#Pokemon>
 
 ---
 --@type PokemonIterator
+--
 --[bind.battle.pkmitr]
 --A Stateless iterator function that iterates over the ipairs resultant from Battle:getPokemon() or Battle:select()
 --
@@ -27,11 +30,13 @@
 
 ---
 --@type SideList
+--
 --[bind.battle.sidelist]
 --@list<#Side>
 
 ---
 --@type SideIterator
+--
 --[bind.battle.sideitr]
 --A Stateless iterator function that iterates over the ipairs resultant from getSides().
 --
@@ -42,17 +47,19 @@
 
 ---
 --@function[parent=#Battle] select()
+--
 --[bind.battle.select]
 --Returns an iterator of Pokemon that matches a given Selector
 --@param self
 --@param Pokemon#Pokemon source the pokemon that the selection originates from
---@param Constants#TargetSelector selector The selection arguments. 
+--@param Constants#TargetSelector selector The selection arguments.
 --@param Pokemon#Pokemon... ... zero or more pokemon handles that represent pokemon to exclude from the selection
 --@return #PokemonIterator,#PokemonList,#number The iterator. The order shall correspond to slot order of pokemon
 --@usage for _,p in battle:select(...) do ... end
 
 ---
 --@function[parent=#Battle] isRemote()
+--
 --[bind.battle.isRemote]
 --Returns true iff the side that this battle represents is distinct from the logical side it exists on.
 --@param self
@@ -60,6 +67,7 @@
 
 ---
 --@function[parent=#Battle] isEvent()
+--
 --[bind.battle.isEvent]
 --Returns true iff actions taken in battle are processed directly by this battle (and are not forwarded to some other remote)
 --@param self
@@ -67,6 +75,7 @@
 
 ---
 --@function[parent=#Battle] getSides()
+--
 --[bind.battle.getSides]
 --Returns an iterator of the side handles for this battle
 --@param self
@@ -74,6 +83,7 @@
 
 ---
 --@function[parent=#Battle] getSide()
+--
 --[bind.battle.getSide]
 --Gets the side handle associated with a given Pokemon
 --@param self
@@ -82,6 +92,7 @@
 
 ---
 --@function[parent=#Battle] getPokemon()
+--
 --[bind.battle.getPokemon]
 --Gets the list of pokemon associated with a given side, or if no side provided, gets all pokemon that are presently in battle.
 --@param self
@@ -91,11 +102,20 @@
 
 ---
 --@type State
+--
 --[bind.battle.state]
 --The type of States that are handling Combat Moves in Battle
+--A State applies to a single move used by a single pokemon (called the source),
+-- and a single pokemon which is possibly affected by it (called the target).
+--
+--If a move is used which has multiple targets, a different state is created for each target.
+--
+--State does not make any guarantees about the result of equality comparisons.
+--
 
 ---
 --@function[parent=#State] getSource()
+--
 --[bind.battle.state.getSource]
 --Returns a handle for the source Pokemon
 --This method is always valid to call when you have a valid state handle
@@ -104,7 +124,18 @@
 
 ---
 --@function[parent=#State] getTarget()
+--
 --[bind.battle.state.getTarget]
 --Returns a handle for the target Pokemon
+--@param self
+--@return Pokemon#Pokemon the target of this particular state. Note that this will return a single Pokemon even if multiple pokemon are targets.
+
+---
+--@function[parent=#State] getMove()
+--
+--[bind.battle.state.getMove]
+--Returns a handle for the Move that was used.
+--@param self
+--@return Pokemon#Move
 
 return nil

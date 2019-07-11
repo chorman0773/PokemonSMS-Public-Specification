@@ -35,6 +35,13 @@
 --[bind.client.game.createItemStack]
 
 ---
+--@function[parent=#Game] getPokemon()
+--
+--Obtains an Pokemon object given the entity name.
+--@param #string pokemon the 
+--
+
+---
 --@function[parent=#Game] getPlayer()
 --Returns the player for the game, or nil if the game is in the Gamemode "NONE".
 --@return Types#Player the player currently in use
