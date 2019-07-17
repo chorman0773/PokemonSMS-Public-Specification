@@ -105,6 +105,27 @@
 ---
 --@function[parent=#State] getTarget()
 --[bind.battle.state.getTarget]
---Returns a handle for the target Pokemon
+--Returns a handle for the target Pokemon 
+--@param self
+--@return Pokemon#Pokemon the target of the Move.
+
+---
+--@function[parent=#State] getMove()
+--[bind.battle.state.getMove]
+--Returns a handle for the move being used.
+--This may return nil in certain circumstances,
+-- IE. when the state is handling a special move, such as an explosion move,
+--  and the implementation chooses not to provide an actual Move instance for this special move.
+-- 
+--@param self
+--@return Pokemon#Pokemon
+
+---
+--@function[parent=#State] hasTrait()
+--[bind.battle.state.hasTrait]
+--Checks if the move that is being used has a particular trait.
+--This is usually more useful than getMove():hasTrait(), as getMove() is allowed to return nil in specific circumstances.
+--@param self
+--@param #string trait the name of the trait to check. This shall be a valid resource location. Unlike most resource locations, the trait by this name need not exist. 
 
 return nil

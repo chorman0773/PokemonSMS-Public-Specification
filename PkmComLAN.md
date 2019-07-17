@@ -25,9 +25,12 @@ You may not, under any circumstances,
 <br/><br/>
 
 ## Information ##
-This Is part of the PkmCom Protocol Complete Definition. This defines how PokemonSMS Clients can interact in LAN mode. It also describes part of the LAN->Global Multi-battle Mode.
+This Is part of the PkmCom Protocol Complete Definition, and extends the PkmCom LAN Specification 2
 
-# LAN Basics #
-LAN mode is a mode of communication with which 2 clients on the same Local Area Network are directly communicating with each other, with one client (the "Master") acting as the server which mediates the connection.  
+
+
+
+# PkmCom Lan
+
 
 
