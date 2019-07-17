@@ -359,10 +359,17 @@ Various IRC Channels are available on the PkmCom Servers that support IRC. These
 
 All Channels start with a group prefix, then end an identifier component.
 
+The format is `<group-component>;<identifier-component>`.
+
+The following group prefixes are provided by default. Other Group prefixes, which are not in any of the reserved domains, MAY be used for any purpose on servers. The server SHOULD send a 0x12 IRC Group Info. 
+* pokemon:generic -> General IRC Channels, identifiers are resource locations.
+* pokemon:trade -> Chat for Trades. Identifiers are Trade IDs.
+* pokemon:battle -> Chat for Battles. Identifiers are Battle IDs.
+
 
 
 ### 0x10 IRC Channel List [pkmcom.cmpl.irc.channels] ###
 
 Clientbound
 
-Sent to set the list of IRC Channels available in general on the  
+Sent to set the list of IRC Channels available the `pokemon:generic` group on the  

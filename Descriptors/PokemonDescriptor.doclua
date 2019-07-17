@@ -13,10 +13,58 @@
 --@field[parent=#TextComponent] #string text the text of the field
 
 ---
+--@type FormDescriptor
+--
+--A Descriptor for various forms of a pokemon
+
+---
+--@field[parent=#FormDescriptor] #number formId
+--
+--The Id of the form. Does not exist for Base-Form PokemonDescriptors. 
+
+---
+--@field[parent=#FormDescriptor] #list<Constants#PokemonType> types
+--
+--The types the Form has. Optional for Alternative Forms. If nil, inherits the tyoes of the base form.
+--MUST NOT be nil for Base-Form PokemonDescriptors.
+
+
+---
 --@type PokemonDescriptor
 --A Descriptor for a Pokemon to be registered. 
+--
+--@extends #FormDescriptor
 -- 
 
+---
+--@field[parent=#PokemonDescriptor] #string loc
+--
+--The Registry Name of the pokemon. Must be a valid resource location. 
+
+---
+--@field[parent=#FormDescriptor] #TextComponent unName
+--
+--The Unlocalized Name of the Pokemon. 
+
+
+---
+--@field[parent=#PokemonDescriptor] #number localDexNum
+--
+--The Regional Pokedex Number
+
+---
+--@field[parent=#PokemonDescriptor] #number nationalDexHint
+--
+--A Hint for the national pokedex number. 
+--This is only guaranteed for pokemon in the "pokemon" domain. 
+--Do not rely on this number. 
+--If 2 pokemon in the "pokemon" domain have the same nationalDexHint, the behavior is undefined. 
+
+
+---
+--@field[parent=#PokemonDescriptor] Events#EventBus eventBus
+--
+--The EventBus this pokemon subscribes to events on. 
 
 
 
