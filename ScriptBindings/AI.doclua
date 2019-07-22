@@ -60,15 +60,17 @@
 ---
 --@function[parent=#AI] chooseTarget
 --
---Returns an AI Task which chooses the target. 
---@param #TargetSelector
+--Returns a target selector task
+--@param self
+--@param #TargetSelector selector
 --@return #AITask the task
 
 ---
 --@function[parent=#AI] attackWith
 --
 --Returns an AI Task which attacks the target pokemon with a move selected by its argument
---@param #MoveSelector
+--@param self
+--@param #MoveSelector selector
 --@return #AITask the task
 
 ---
@@ -82,8 +84,45 @@
 --@function[parent=#AI] switchFor
 --
 --Returns an AI Task which switches the active pokemon for a target.
---@param #PokemonSelector
+--@param self
+--@param #PokemonSelector selector
 --@return #AITask the task
+
+---
+--@function[parent=#AITask] __lt
+--
+--Joins two AITasks by priority.
+--If both are target selector tasks, then the result is a target selector task. 
+-- The first is checked and the result is used unless the result is nil, in which case the next is checked. This can chain indefinately.
+--If one is a target selector task, and the other is not a target selector task, then the first must be the target selector task or the implementation MUST raise an error and cease execution.
+--Once a target selector is resolved, the other task is resolved in order until one does not return nil.
+--If no target selector can be resolved, then it chooses a random target from Battle:select(bit32.bxor(Constants.Select.ADJANCENT,Constants.Select.OPPONENT)).
+--If no task resolves an action, then a random move is chosen to be used instead.
+--@param #AITask self
+--@param #AITask other
+--@return #AITask an AITask which chooses
+
+---
+--@field[parent=#AI] #AITask RandomMove
+--
+--An AI Task which resolves a random move.
+
+---
+--@field[parent=#AI] #AITask AttackLowestHealth
+--
+--An AI Task which selects the target from Battle:select(bit32.bxor(Constants.Select.ADJANCENT,Constants.Select.OPPONENT)) sorted in ascending order by HP.
+--If there a multiple pokemon with the lowest HP then it is unspecified which one is chosen
+
+---
+--@field[parent=#AI] #AITask AttackHighestHealth
+--
+--An AI Task which selects the target from Battle:select(bit32.bxor(Constants.Select.ADJANCENT,Constants.Select.OPPONENT)) sorted in descending order by HP.
+--If there a multiple pokemon with the highest HP then it is unspecified which one is chosen.
+
+---
+--@field[parent=#AI] #AITask RunFromBattle
+--An AI Task which causes the Pokemon to run from battle.
+--This can only be a task for Static Battles started using Game:startStaticBattle.
 
 
 return nil
