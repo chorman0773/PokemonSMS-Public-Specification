@@ -1,0 +1,89 @@
+-------------------------------------------------------------------------------
+-- @module AI
+-- 
+-- This module is used to 
+
+---
+--@type MoveSelector
+--
+
+---
+--@type PokemonSelector
+
+---
+--@type ItemSelector
+
+---
+--@type TargetSelector
+
+---
+--@callof MoveSelector
+--
+--@param Battle#Battle battle the active battle
+--@param Pokemon#Pokemon this the pokemon
+--@param Pokemon#Pokemon target the pokemon being targeted.
+--
+--@return Pokemon#MoveInstance a move instance, which is a member of this, to be used.
+--@return #nil if this selector is not interested in selecting a move
+
+---
+--@callof PokemonSelector
+--
+--@param Battle#Battle battle the active battle
+--@param Pokemon#Pokemon this the pokemon
+--@param Pokemon#Pokemon target the pokemon being targeted.
+--@param Battle#PokemonList the pokemon list to target.
+--
+--@return Pokemon#Pokemon the pokemon to switch in.
+--@return #nil if this selector is not interested in selecting a pokemon
+
+---
+--@callof ItemSelector
+--
+--@param Battle#Battle battle the active battle
+--@param Pokemon#Pokemon this the pokemon
+--@param Pokemon#Pokemon target the pokemon being targeted.
+--
+--@return Pokemon#Item the item to use.
+--@return #nil if this selector is not interested in selecting an item
+
+---
+--@callof TargetSelector
+--
+--@param Battle#Battle battle the active battle
+--@param Pokemon#Pokemon this the pokemon
+--@param Battle#Side side the opponents side.
+--
+--@return Pokemon#Pokemon the pokemon being targeted. MUST be a member of the current battle.
+--@return #nil if this selector is not interested in selecting a target.
+
+---
+--@function[parent=#AI] chooseTarget
+--
+--Returns an AI Task which chooses the target. 
+--@param #TargetSelector
+--@return #AITask the task
+
+---
+--@function[parent=#AI] attackWith
+--
+--Returns an AI Task which attacks the target pokemon with a move selected by its argument
+--@param #MoveSelector
+--@return #AITask the task
+
+---
+--@function[parent=#AI] useItem
+--
+--Returns an AI Task which uses an item based on the target.
+--@param #ItemSelector
+--@return #AITask the task
+
+---
+--@function[parent=#AI] switchFor
+--
+--Returns an AI Task which switches the active pokemon for a target.
+--@param #PokemonSelector
+--@return #AITask the task
+
+
+return nil
