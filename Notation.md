@@ -26,9 +26,9 @@ You may not, under any circumstances,
 ## Information ##
 This document Describes the notation used in this specification. 
 
-# Specification Notation #
+# Specification Notation [notation] #
 
-## Range Notation ##
+## Range Notation [notation.range] ##
 
 Ranges are specified in this document using Range Notation. For example, [0,1) represents the range between 0 (inclusive), and 1 (exclusive). 
 
@@ -36,3 +36,6 @@ The following range `(,)`, refers to an unbound range (all numbers).
 
 The set which governs the range is given by the context, or by an explicit Z (integers), Q (rational), or R (real). There are no Complex Ranges. 
 
+## Section Notation [notation.section]
+
+A Section is a normative part of the PokemonSMS Public Specification. It will contain a section name, which is specified in `[square.brackets]` and contains several components, which contain solely lower case latin letters without accents, and are separated by `.`. A section which is not part of a Heading is a reference to a section. 

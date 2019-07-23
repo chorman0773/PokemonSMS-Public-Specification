@@ -78,35 +78,9 @@ An Extension is an additional code, either in the Implementation Language, a Lua
 A Resource is either, some part of the Core which is not part of the Core Libraries, a non-code portion of an Extension, or a binding from the Core Libraries to the Implementation.
 
 
-## MUST/MUST NOT [terms.mandate] ##
+## Requirements [terms.requirements]
 
-
-
-MUST and MUST NOT are the strongest qualifiers used in the PokemonSMS Specification. 
-If part of the specification says that an Implementation MUST perform some action, or expose some resource, then it is required that the Implementation perform that action or expose that resource, or the Implementation is Non-conforming. 
-MUST NOT is the opposite qualifier, that is, if part of the specification says that an Implementation MUST NOT perform some action, then the Implementation is not allowed to perform that action. In general, there are no resources that an Implementation MUST NOT Expose. If an implementation performs an action it MUST NOT perform, then it is Non-conforming. 
-In general, the Core Libraries will not load correctly, or at all, on an Implementation that does not expose a resource or perform an action that an Implementation MUST expose or perform, or one that performs an action it MUST NOT perform. 
-If an extension MUST NOT perform an action, then the Implementation MUST respond to an extension which does, either by discontinuing execution, or disabling the extension. The Implementation MUST NOT silently ignore the violation, or block the instance of the violation only.
-
-
-## MAY NOT [terms.maynot] ##
-
-
-MAY NOT is a step down from MUST/MUST NOT. If an implementation MAY NOT perform an action, or expose a resource, then the Core Libraries will ignore the case that that action is performed or resource exposed. It is not a violation of the specification to violate a MAY NOT clause, however, the execution may not run as intended. Exposing a resource that MAY NOT be exposed in general has no effect. Performing an action which MAY NOT be performed is Undefined Behavior. For example, Implementations MAY NOT add custom entries to the pokemon domain. 
-If an extension MAY NOT perform an action, or expose a resource, it is unspecified how the Implementation acts. In general, an implementation which performs an action or exposes a resource that it MAY NOT has undefined behavior. 
-
-## SHOULD NOT [terms.shouldnot] ##
-
-
-
-SHOULD NOT not is similar to MAY NOT, except in terms of Implementations, it describes actions which would not affect the observable behavior of the Implementation, nor any behavior of other implementations which may rely on the effects of the implementation. 
-It may also describe an action which may have negative effects on the user, but have no direct effect on gameplay (for example, using a Weak Source of Random numbers for the CryptoShade extensions in SaveFiles). 
-Actions which SHOULD NOT be performed by extensions follow the same pattern. 
-A resource which SHOULD NOT be exposed is treated as one that MAY NOT be exposed.
-
-## SHOULD/MAY [terms.suggestion] ##
-
-SHOULD and MAY refer to actions which are optional for the Implementation to perform, or resources which are option for the Implementation to expose. It may also refer to such an action or resource optionally performed or exposed by an extension. There is no distiction between SHOULD or MAY except that SHOULD will be used when it is recommended to perform that action or expose that resource. 
+The terms MUST, MUST NOT, SHALL, REQUIRED, SHOULD, SHOULD NOT, RECOMMENDED, MAY, MAY NOT, and OPTIONAL are requirements. These terms, in all caps, are used as defined by [[RFC 2119]](https://tools.ietf.org/html/rfc2119).  
 
 ## Illegal Action [terms.illegal] ##
 
@@ -135,7 +109,7 @@ Implementations are allowed to ignore cases in which undefined behavior occurs, 
 At any point in the game, implementations are allowed to take any side operation they wish outside of the specification, provided that the operation is a no-op as far as this specification is concerned.  
 Actions which are an Effective No-op are ones that do not affect the visible state of the game. These include, but are not limited to:
 * Writing to some file, except a game save file or `saves.pkmdb`
-* Writing to a table in the `saves.pkmdb`, except the Global Save Table
+* Writing to a table in the `saves.pkmdb`, except the Global Save Table, or the Options Table. 
 * Writing to the console
 * Writing to some unspecified output area, except any Graphics Layer
 * Reading some variable used by this specification.
@@ -168,7 +142,7 @@ In particular, a meaningful action may not be any of the following, unless the c
 ## Meaningless Action [terms.action.incorrect] ##
 
 
-A Meaningless action is one that is not permitted by this specification in the active context. It is any action taken that is neither considered an effective no-op nor defined by this specification in the context as Required, Optional, Implementation-Defined, or Unspecified. 
+A Meaningless action is one that is not permitted by this specification in the active context. It is any action taken that is neither considered an effective no-op nor defined by this specification in the context as REQUIRED, RECOMMENDED, OPTIONAL, Implementation-Defined, or Unspecified. 
 
 Such an action MUST NOT be taken by implementations, except in situtations where the core libraries or an extension takes an action that results in undefined behavior. 
 
@@ -188,8 +162,12 @@ The result of taking a conditionally supported action that is not supported is e
 
 ## Implementation Specific Behavior [terms.implspec] ##
 
-The Superset of Implementation-Defined Behavior and Unspecified Behavior. 
+The Superset of Implementation-Defined Behavior and Unspecified Behavior.
 
 ## This Specification [terms.this] ##
 
 The PokemonSMS Public Specification or some part thereof. 
+
+## This Document [terms.doc] 
+
+When used within a document which forms a part of the specification, refers to that document in particular. 
