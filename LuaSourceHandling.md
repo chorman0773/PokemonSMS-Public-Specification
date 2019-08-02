@@ -37,7 +37,14 @@ Lua Source files are to be interpreted as per the [Lua 5.2 language](http://www.
 
 Alternatively, implementations may choose to interpret the file per the [Lua 5.3 Language](http://www.lua.org/manual/5.3/) with the same modifications (however the bit32 library MUST still be exposed as below). It is implementation defined if this is the case. 
 
-The modifications are made to ensure that each source file exists within its own sandbox, independant of other source files.
+(The modifications are made to ensure that each source file exists within its own sandbox, independant of other source files.)
+
+### Lua 5.3 Support [lua.ver.latest] 
+
+Lua 5.3, as stated, is not required to be supported. However implementations which support Lua 5.3 MUST additional provide the following guarantees:
+
+* The Integer Division Operation (`//`) between two integer values MUST have the same result as a standard division between these values iff divison would have no remainder. 
+* The bitwise operations; `|`, `&`, binary `~`, and unary `~`; have the same effect, respectively as `bit32.bor`, `bit32.band`, `bit32.bxor`, and `bit32.bnot`, regaurdless of the type of operands.
 
 ## Execution Environment [lua.exec] ##
 In PokemonSMS, every lua source file executed by the implemention must execute independently of every other file. That is, all side effects of executing any given source file MUST NOT affect the execution of any other file. This is achieved by isolating the global environment per file, as well as restricting the libraries accessible to these files. 
@@ -57,8 +64,11 @@ There are 2 distinct numeric types specified in the modified lua that apply to t
 An integer value is result of one of the following expressions:
 * An integer literal, which is a number literal that does not contain a decimal point, an exponent, and is representable as an integer value
 * The "index" value obtained with the ipairs iterator or similar iterators. 
-* The result of the addition operator, subtraction operator, multiplication operator, and division operator when both operands are integer values
+* The result of the addition operator, subtraction operator, multiplication operator, and division operator when both operands are integer values, and the division can be computed without remainder in the set of integers.
 * The result of the unary minus operator, when the operand is an integer value
 * The result of any function in the bit32 library.
+* (In implementations supporting Lua 5.3) The result of the integer division operator
+* (In implementations supporting Lua 5.3) The result of any bitwise operator, or shift operator.
 
-All addition/subtraction/multiplication involving integer values (and only integer values), shall be carried out in the domain of 32-bit signed integers. It is unspecified if division is carried out in this domain, but the result must be truncated (round-towards-zero) if it is not representable in an integer. If an integer value is divided by 0 this way, the implementation must raise an error. If overflow would occur, the result shall be the result of performing this operation with float values instead, after which the result is truncated to an infinite precision integer, of which the low order 32-bits are preserved, and the result is the value (overflows result in wraparround to negative values). 
+All addition/subtraction/multiplication involving integer values (and only integer values), shall be carried out in the domain of 32-bit signed integers. If an integer value is divided by 0 this way, the implementation must raise an error. 
+If overflow would occur, the result shall be the result of performing this operation with float values instead, after which the result is truncated to an infinite precision integer, of which the low order 32-bits are preserved (and all other bits are discarded), and the result is the value (overflows result in wraparround to negative values). 

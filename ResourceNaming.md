@@ -37,6 +37,9 @@ The path is made up of 1 or more components, separated with a /. Each component 
 Note that not all valid java unqualified identifiers are valid components of a resource location. Any resource name which has a domain or any path component that solely consists of underscores is an invalid name. 
 
 Note that in this document, the word `domain`, refers to the domain component of a resource name.  
+
+The conjunction of the domain and path components may be refered to as an entity name, resource name, resource location, resource identifier, or namespaced identifier. 
+
 ## Registering Entries [res.entry] ##
 Entries are stored in a registry, which organizes entries in bidirectional unique mappings from keys to values. Registering an Entry adds that Entry to the registry, and specifically to the domain its registered with.
 Entries are Registered if:
@@ -45,11 +48,18 @@ Entries are Registered if:
 <li>The current Implementation manually registers them (Implementation Defined Entries)</li>
 <li>Custom Libraries loaded in a Implementation Defined way defines them (Known as Injected Entries)</li>
 </ul>
-When a Custom Library Injects an entry, it becomes the owner of that domain. The behavior is undefined if multiple loaded libraries inject entries into a single domain (addition restrictions on injected entries are also specified. See Reserved Domains)<br/>
-It is illegal to register more than one entry with a given name. Implementations are required to block multiple entries being registered under the same name. It is also recommended to prevent multiple identical entries from being registered under different names, though not as strictly enforced.
+
+When a Custom Library Injects an entry into a domain, it becomes the owner of that domain. The behavior is undefined if a loaded library injects an entry into a domain that is owned by another loaded library
+
+It is illegal to register more than one entry with a given name. 
+
+Implementations MUST prevent the registration of multiple identical entities of the same type with the same name. Implementations SHOULD prevent the registration of multiple entities of different types with the same name. 
 
 ## Reserved Domains [res.reserved] ##
-There are 7 Distinct Domains which have special rules about what can be added to them. These are called reserved domains. The domains are defined either to prevent ambiguity, for implementations to place custom entries in, and for other special entries.
+There are 7 Distinct Domains which have special rules about what can be added to them. These are called reserved domains. The domains are defined either to prevent ambiguity, for implementations to place custom entries in, and for other special entries. 
+
+These domains are owned by this specification or (in the case of `impl` and `internal`) by the implementation.
+
 It is undefined behavior to add entries to any of these domains in violation of the rules for doing so.
 ### pokemon [res.reserved.pokemon] ###
 The pokemon domain is the basic domain. All Entries presently added by the Core Libraries are placed into the pokemon domain.
@@ -78,13 +88,15 @@ There are 12 entries into the system namespace:
 </ul>
 
 Null entries have no associated events, an implementation defined unlocalized names, and all required type dependent fields are set to valid implementation defined values.  
-Special Entries have there 
+Special Entries have there properties defined in `[entities.special]`.
 
 ### impl and internal [res.reversed.impl] ###
 The impl and internal domains are internal domains, which is reserved for implementation specific entries. 
+
 Like other internal domains, entries can only be added to the impl domain by the Implementation. 
-The distiction between impl and internal is that impl entries should be shared by Implementations which are both a client and a server implementation, whereas internal entries should be reserved to one side.
-If an implementation only implements one side, there is no real distiction betwen the two domains.
+
+(The distiction between impl and internal is that impl entries should be shared by Implementations which are both a client and a server implementation, whereas internal entries should be reserved to one side.
+If an implementation only implements one side, there is no real distiction betwen the two domains.)
 
 ### mod [res.reserved.mod] ###
 The mod domain is reserved to prevent generic domains from being used in modifications.  No entries are specified for the mod domain, nor may any entries be added to it. 
@@ -93,12 +105,12 @@ The mod domain is reserved to prevent generic domains from being used in modific
 The client and server domains are reserved standard domains, which are reserved to place single sided standard entries in. Presently, neither specifies any entries, but they are reserved for future release. 
 
 Note: These domains were reserved proactively, with the intent that they may be used to store standard names that only apply to a given side (such as the names of locations). 
-It is possible that these domains will remain unused, and implementations are permitted (though strongly discouraged) from waiving the restriction on these domains, for as long as they remain unused. 
+It is possible that these domains will remain unused, and implementations are permitted (though strongly discouraged) from waiving the restriction on these domains, for as long as they remain unused.  (This also permits implementations to use these domains internally, though again, this is strongly discouraged)
 
 ### test [res.reserved.test] ###
 The test domain is a standard domain which is used for testing an implementations  compliance to this Specification. 
 Only the Core Libraries are allowed to add entries to the test domain, and only when the implementation is testing as above.
-There are 1000 defined entries in the test domain, all of which are listed in the ImplementationTesting.md document.
+
 
 ### Other Reserved Domain [res.reserved.other] ###
 In the future, domains may be added to this list. This usually occurs for domains used by custom Core Libraries. 

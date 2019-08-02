@@ -22,3 +22,13 @@ Any person or persons may use, in part or in whole, any document contained withi
 Additionally, exemplar code contained within the specification are distributed under the MIT Free Software License. The Core Libraries are distributed under the GNU Lesser General Public License. 
 
 All of the documentation and exemplar code provided by this specification are provided on an AS IS basis, without any warranties of any kind, including the implied warranties of MERCHENTABILITY, FITNESS FOR A PARTICULAR PURPOSE, or NON INFRINGMENT. 
+
+## Specification
+
+This Specification is composed of multiple files which contain normative wording defining the operation of a PokemonSMS Implementation. 
+
+The specification can be further broken down into sections. A Section is defined in `[square brackets]`, and consists of a list of components, separated by `.`. A reference may be made using this notation. 
+
+Most parts of this specification are normative, however some parts are informative and have no actual bearing on the specification or implementations, usually serving as an example or anecdote about part of the preceeding normative wording. Such parts are usually confined to parenthesis, or a part of the specification, without a section name, which contains the exact or similar wording "_This section is non-normative_". 
+Implementations may disreguard such informative statements.
+
