@@ -22,9 +22,11 @@
 --@param Battle#Battle battle the active battle
 --@param Pokemon#Pokemon this the pokemon
 --@param Pokemon#Pokemon target the pokemon being targeted.
+--@param #list<Pokemon#MoveInstance> filter the filter being applied or nil if no filter is applied.
 --
 --@return Pokemon#MoveInstance a move instance, which is a member of this, to be used.
 --@return #nil if this selector is not interested in selecting a move
+--@return #list<Pokemon#MoveInstance> if this selector is interested in filtering the results.
 
 ---
 --@callof PokemonSelector
@@ -33,9 +35,11 @@
 --@param Pokemon#Pokemon this the pokemon
 --@param Pokemon#Pokemon target the pokemon being targeted.
 --@param Battle#PokemonList the pokemon list to target.
+--@param #list<Pokemon#Pokemon> filter the filter being applied or nil if no filter is applied.
 --
 --@return Pokemon#Pokemon the pokemon to switch in.
 --@return #nil if this selector is not interested in selecting a pokemon
+--@return #list<Pokemon#Pokemon> if this selector is interested in filtering the results.
 
 ---
 --@callof ItemSelector
@@ -43,9 +47,11 @@
 --@param Battle#Battle battle the active battle
 --@param Pokemon#Pokemon this the pokemon
 --@param Pokemon#Pokemon target the pokemon being targeted.
+--@param #list<Pokemon#Item> filter the filter being applied or nil if no filter is applied.
 --
 --@return Pokemon#Item the item to use.
 --@return #nil if this selector is not interested in selecting an item
+--@return #list<Pokemon#Item> if this selector is interested in filtering the results.
 
 ---
 --@callof TargetSelector
@@ -53,9 +59,11 @@
 --@param Battle#Battle battle the active battle
 --@param Pokemon#Pokemon this the pokemon
 --@param Battle#Side side the opponents side.
+--@param #list<Pokemon#Pokemon> filter the filter being applied or nil if no filter is applied.
 --
 --@return Pokemon#Pokemon the pokemon being targeted. MUST be a member of the current battle.
 --@return #nil if this selector is not interested in selecting a target.
+--@return #list<Pokemon#Pokemon> if this selector is interested in filtering the results.
 
 ---
 --@function[parent=#AI] chooseTarget
@@ -98,6 +106,7 @@
 --Once a target selector is resolved, the other task is resolved in order until one does not return nil.
 --If no target selector can be resolved, then it chooses a random target from Battle:select(bit32.bxor(Constants.Select.ADJANCENT,Constants.Select.OPPONENT)).
 --If no task resolves an action, then a random move is chosen to be used instead.
+--If the last task resolves a filter list, then a random entry in that filter is chosen. 
 --@param #AITask self
 --@param #AITask other
 --@return #AITask an AITask which chooses
@@ -106,6 +115,15 @@
 --@field[parent=#AI] #AITask RandomMove
 --
 --An AI Task which resolves a random move.
+
+---
+--@field[parent=#AI] #AITask SuperEffectiveMove
+--
+--An AI Task which resolves a combat move which is super effective against the target.
+--Ties pass to next task
+
+---
+--@field[parent=#AI] #AITask HighestPower
 
 ---
 --@field[parent=#AI] #AITask AttackLowestHealth

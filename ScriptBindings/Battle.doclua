@@ -4,6 +4,7 @@
 -- Defines various types and bindings used by Battles in the PokemonSMS Core Libraries
 --[bind.battle]
 
+
 ---
 --@type Battle
 --The type of handles passed as the `battle` field of move event handlers.
@@ -118,7 +119,7 @@
 --  and the implementation chooses not to provide an actual Move instance for this special move.
 -- 
 --@param self
---@return Pokemon#Pokemon
+--@return Pokemon#Move
 
 ---
 --@function[parent=#State] hasTrait()
@@ -127,5 +128,12 @@
 --This is usually more useful than getMove():hasTrait(), as getMove() is allowed to return nil in specific circumstances.
 --@param self
 --@param #string trait the name of the trait to check. This shall be a valid resource location. Unlike most resource locations, the trait by this name need not exist. 
+--@return #boolean true iff the trait applies to the move which triggered this state, or the state is a special state which is caused by Battle:inflictExplosionDamage, and trait is pokemon:explosive.
+
+---
+--@function[parent-#State] getType()
+--
+--[bind.battle.state.getType]
+--Returns the type of the state.
 
 return nil
